@@ -1,4 +1,4 @@
-from utils.func import get_load_data
+from utils.func import get_load_data, get_change_date_format
 import os
 import pytest
 from config import ROOT_DIR
@@ -11,4 +11,8 @@ def test_get_load_data():
 
     assert get_load_data(test_file) == [{"1": 1, "2": 2, "3": "three"}]
 
+
+def test_get_change_date_format():
+    """Тест функции которая преобразует формат даты"""
+    assert get_change_date_format("2019-02-01T00:00:00.000001") == "01.02.2019"
 
