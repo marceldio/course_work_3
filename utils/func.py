@@ -30,19 +30,28 @@ def mask_card_or_account(value):
     card_name = ' '.join(nums[:-1])
     return card_name + ' ' + nums[-1][:4] + ' ' + nums[-1][4:6] + '** **** ' + nums[-1][-4:]
 
-
-def get_filtered():
+operations = get_load_data(operations_file)
+def get_filtered(operations):
     """
     Функция возвращает отфильтрованные транзакции по статусу - Выполнено
     """
-
-    operations = get_load_data(operations_file)
     executed_operations = [op for op in operations if op.get("state") == "EXECUTED"]
 
     return executed_operations
 
 
+sorting_file = get_filtered(operations)
+def get_sort_date(sorting_file):
+    """Функция возвращает транзакции сортированные по дате в обратном порядке"""
+
+    executed_sorted = sorted(sorting_file, key=lambda op: datetime.fromisoformat(op['date']), reverse=True)
+
+    return executed_sorted
+
+
+
 print(get_load_data(operations_file))
 print(get_change_date_format("2019-02-01T00:00:00.000001"))
 print(mask_card_or_account("Maestro 4598300720424501"))
-print(get_filtered())
+print(get_filtered(operations))
+print(get_sort_date(sorting_file))
