@@ -19,7 +19,7 @@ def get_change_date_format(date):
     """
     Функция возвращает преобразованную дату в нужный формат
     """
-    return datetime.fromisoformat(date).strftime('%d.%m.%Y')
+    return datetime.fromisoformat(date).strftime(Fore.RED + '%d.%m' + Style.RESET_ALL + '.%Y')
 
 
 def mask_card_or_account(value):
@@ -31,7 +31,7 @@ def mask_card_or_account(value):
         return "Счет **" + value[-4:]
     else:
         card_name = ' '.join(nums[:-1])
-        return card_name + ' ' + nums[-1][:4] + ' ' + nums[-1][4:6] + '** **** ' + nums[-1][-4:]
+        return card_name + ' ' + Fore.RED + nums[-1][:4] + ' ' + nums[-1][4:6] + Style.RESET_ALL + '** **** ' + Fore.RED + nums[-1][-4:] + Style.RESET_ALL
 
 
 def get_filtered(operations):
@@ -56,4 +56,4 @@ def get_format_summ(money):
     """
     amount = float(money['operationAmount']['amount'])
     currency_name = money['operationAmount']['currency']["name"]
-    return f'{amount} {currency_name}'
+    return f'{Fore.RED}{amount} {Style.RESET_ALL}{currency_name}'
