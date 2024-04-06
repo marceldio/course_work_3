@@ -57,24 +57,3 @@ def get_format_summ(money):
     amount = float(money['operationAmount']['amount'])
     currency_name = money['operationAmount']['currency']["name"]
     return f'{amount} {currency_name}'
-
-
-"""
-def print_last_operations():  # pragma: nocover
-    """
-# Основная функция - выводит детали последних 5 транзакций.,
-"""
-    loaded_file = get_load_data(operations_file)
-    filtered = get_filtered(loaded_file)
-    sorting = get_sort_date(filtered)
-
-    for i, operation in enumerate(sorting[:5]):
-        if i > 0:
-            print()
-
-        print(get_change_date_format(operation["date"]), operation["description"])
-        if operation["description"] != "Открытие вклада":
-            print(mask_card_or_account(operation["from"]) + " -> ", end="")
-        print(mask_card_or_account(operation["to"]))
-        print(get_format_summ(operation))
-"""
