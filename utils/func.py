@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 import os
 from config import ROOT_DIR
+from colorama import Fore, Style
 
 operations_file = os.path.join(ROOT_DIR, 'utils', 'operations.json')
 
@@ -22,15 +23,15 @@ def get_change_date_format(date):
 
 
 def mask_card_or_account(value):
-  """
-  Функция маскирует номер карты или счета.
-  """
-  nums = value.split()
-  if nums[0] == "Счет":
-    return "Счет **" + value[-4:]
-  else:
-    card_name = ' '.join(nums[:-1])
-    return card_name + ' ' + nums[-1][:4] + ' ' + nums[-1][4:6] + '** **** ' + nums[-1][-4:]
+    """
+    Функция маскирует номер карты или счета.
+    """
+    nums = value.split()
+    if nums[0] == "Счет":
+        return "Счет **" + value[-4:]
+    else:
+        card_name = ' '.join(nums[:-1])
+        return card_name + ' ' + nums[-1][:4] + ' ' + nums[-1][4:6] + '** **** ' + nums[-1][-4:]
 
 
 def get_filtered(operations):
@@ -58,10 +59,11 @@ def get_format_summ(money):
     return f'{amount} {currency_name}'
 
 
+"""
 def print_last_operations():  # pragma: nocover
     """
-    Основная функция - выводит детали последних 5 транзакций.,
-    """
+# Основная функция - выводит детали последних 5 транзакций.,
+"""
     loaded_file = get_load_data(operations_file)
     filtered = get_filtered(loaded_file)
     sorting = get_sort_date(filtered)
@@ -75,3 +77,4 @@ def print_last_operations():  # pragma: nocover
             print(mask_card_or_account(operation["from"]) + " -> ", end="")
         print(mask_card_or_account(operation["to"]))
         print(get_format_summ(operation))
+"""
