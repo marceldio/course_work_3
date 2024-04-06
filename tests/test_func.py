@@ -18,36 +18,47 @@ test_op = [
 def test_op_fixture():
     return test_op
 
-def test_get_load_data():
-    """Тест функции которая загружат и читает  json - файл"""
 
+def test_get_load_data():
+    """
+    Тест функции которая загружат и читает  json-файл
+    """
     assert get_load_data(test_file) == [{"1": 1, "2": 2, "3": "three"}]
 
 
 def test_get_change_date_format():
-    """Тест функции которая преобразует формат даты"""
+    """
+    Тест функции которая преобразует формат даты
+    """
     assert get_change_date_format("2019-02-01T00:00:00.000001") == "01.02.2019"
 
 
 def test_mask_card_or_account():
-    """Тест функции которая маскирует номер карты или счета."""
+    """
+    Тест функции которая маскирует номер карты или счета.
+    """
     assert mask_card_or_account("Maestro 4598300720424501") == "Maestro 4598 30** **** 4501"
     assert mask_card_or_account("Счет 27248529432547658655") == "Счет **8655"
 
 
 def test_get_filtered(test_op_fixture):
-    """ Тест функции которая фильтрует транзакции по статусу - Выполнено """
+    """
+    Тест функции которая фильтрует транзакции по статусу - Выполнено
+    """
     assert len(get_filtered(test_op_fixture)) == 3
 
 
 def test_get_sort_date(test_op_fixture):
-    """Тест функции которая возвращает транзакции сортированные по дате в обратном порядке"""
+    """
+    Тест функции которая возвращает транзакции сортированные по дате в обратном порядке
+    """
     assert [i["id"] for i in get_sort_date(test_op_fixture)] == [1, 3, 2, 4]
 
 
 def test_get_format_summ():
-    """Тест функции которая возвращает сумму и валюту транзакции"""
-    #return f'{money["operationAmount"]["amount"]} {money["operationAmount"]["currency"]["name"]}'
+    """
+    Тест функции которая возвращает сумму и валюту транзакции
+    """
     data = {
         "id": 104807525,
         "state": "EXECUTED",
@@ -63,6 +74,4 @@ def test_get_format_summ():
         "from": "МИР 8201420097886664",
         "to": "Счет 35116633516390079956"
     }
-
-    expected = "60888.63 руб."
-    assert get_format_summ(data) == expected
+    assert get_format_summ(data) == "60888.63 руб."
