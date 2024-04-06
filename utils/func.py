@@ -49,6 +49,12 @@ def get_sort_date(sorting_file):
     return executed_sorted
 
 
+def get_format_summ(money):
+    """Функция возвращает сумму и валюту транзакции"""
+    amount = float(money['operationAmount']['amount'])
+    currency_name = money['operationAmount']['currency']["name"]
+    return f'{amount} {currency_name}'
+
 
 print(get_load_data(operations_file))
 print(get_change_date_format("2019-02-01T00:00:00.000001"))

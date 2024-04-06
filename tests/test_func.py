@@ -1,5 +1,5 @@
 from utils.func import (get_load_data, get_change_date_format, mask_card_or_account,
-                        get_filtered, get_sort_date)
+                        get_filtered, get_sort_date, get_format_summ)
 import os
 import pytest
 from config import ROOT_DIR
@@ -43,3 +43,26 @@ def test_get_filtered(test_op_fixture):
 def test_get_sort_date(test_op_fixture):
     """Тест функции которая возвращает транзакции сортированные по дате в обратном порядке"""
     assert [i["id"] for i in get_sort_date(test_op_fixture)] == [1, 3, 2, 4]
+
+
+def test_get_format_summ():
+    """Тест функции которая возвращает сумму и валюту транзакции"""
+    #return f'{money["operationAmount"]["amount"]} {money["operationAmount"]["currency"]["name"]}'
+    data = {
+        "id": 104807525,
+        "state": "EXECUTED",
+        "date": "2019-06-01T06:46:16.803326",
+        "operationAmount": {
+          "amount": "60888.63",
+          "currency": {
+            "name": "руб.",
+            "code": "RUB"
+          }
+        },
+        "description": "Перевод с карты на счет",
+        "from": "МИР 8201420097886664",
+        "to": "Счет 35116633516390079956"
+    }
+
+    expected = "60888.63 руб."
+    assert get_format_summ(data) == expected
