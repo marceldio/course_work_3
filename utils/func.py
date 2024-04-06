@@ -30,6 +30,19 @@ def mask_card_or_account(value):
     card_name = ' '.join(nums[:-1])
     return card_name + ' ' + nums[-1][:4] + ' ' + nums[-1][4:6] + '** **** ' + nums[-1][-4:]
 
+
+def get_filtered():
+    """
+    Функция возвращает отфильтрованные транзакции по статусу - Выполнено
+    """
+
+    operations = get_load_data(operations_file)
+    executed_operations = [op for op in operations if op.get("state") == "EXECUTED"]
+
+    return executed_operations
+
+
 print(get_load_data(operations_file))
 print(get_change_date_format("2019-02-01T00:00:00.000001"))
 print(mask_card_or_account("Maestro 4598300720424501"))
+print(get_filtered())

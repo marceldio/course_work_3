@@ -1,4 +1,5 @@
-from utils.func import get_load_data, get_change_date_format, mask_card_or_account
+from utils.func import (get_load_data, get_change_date_format, mask_card_or_account,
+                        get_filtered)
 import os
 import pytest
 from config import ROOT_DIR
@@ -21,3 +22,10 @@ def test_mask_card_or_account():
     """Тест функции которая маскирует номер карты или счета."""
     assert mask_card_or_account("Maestro 4598300720424501") == "Maestro 4598 30** **** 4501"
     assert mask_card_or_account("Счет 27248529432547658655") == "Счет **8655"
+
+
+def test_get_filtered():
+    """ Тест функции которая фильтрует транзакции по статусу - Выполнено """
+    assert len(get_filtered()) == 85
+
+
