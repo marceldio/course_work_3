@@ -3,6 +3,7 @@ from utils.func import (get_load_data, get_change_date_format, mask_card_or_acco
 import os
 import pytest
 from config import ROOT_DIR
+from colorama import Fore, Style
 
 test_file = os.path.join(ROOT_DIR, 'tests', 'test_operations.json')
 
@@ -30,14 +31,14 @@ def test_get_change_date_format():
     """
     Тест функции которая преобразует формат даты
     """
-    assert get_change_date_format("2019-02-01T00:00:00.000001") == "01.02.2019"
+    assert get_change_date_format("2019-02-01T00:00:00.000001") == Fore.RED + "01.02" + Style.RESET_ALL + ".2019"
 
 
 def test_mask_card_or_account():
     """
     Тест функции которая маскирует номер карты или счета.
     """
-    assert mask_card_or_account("Maestro 4598300720424501") == "Maestro 4598 30** **** 4501"
+    assert mask_card_or_account("Maestro 4598300720424501") == "Maestro " + Fore.RED + "4598 30" + Style.RESET_ALL + "** **** " + Fore.RED + "4501" + Style.RESET_ALL
     assert mask_card_or_account("Счет 27248529432547658655") == "Счет **8655"
 
 
@@ -74,4 +75,4 @@ def test_get_format_summ():
         "from": "МИР 8201420097886664",
         "to": "Счет 35116633516390079956"
     }
-    assert get_format_summ(data) == "60888.63 руб."
+    assert get_format_summ(data) == Fore.RED + "60888.63 " + Style.RESET_ALL + "руб."
