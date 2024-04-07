@@ -38,7 +38,9 @@ def test_mask_card_or_account():
     """
     Тест функции которая маскирует номер карты или счета.
     """
-    assert mask_card_or_account("Maestro 4598300720424501") == "Maestro " + Fore.RED + "4598 30" + Style.RESET_ALL + "** **** " + Fore.RED + "4501" + Style.RESET_ALL
+    assert (mask_card_or_account("Maestro 4598300720424501") == "Maestro "
+            + Fore.RED + "4598 30" + Style.RESET_ALL + "** **** "
+            + Fore.RED + "4501" + Style.RESET_ALL)
     assert mask_card_or_account("Счет 27248529432547658655") == "Счет **8655"
 
 
