@@ -1,6 +1,7 @@
 from utils.func import (get_load_data, get_change_date_format, mask_card_or_account,
-                        get_filtered, get_sort_date, get_format_summ, operations_file)
+                        get_filtered, get_sort_date, get_format_summ)
 from colorama import Fore, Style
+from config import operations_file
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
             print()
 
         print(get_change_date_format(operation["date"]), operation["description"])
-        if operation["description"] != "Открытие вклада":
+        if operation.get("from"):
             print(mask_card_or_account(operation["from"]) + " -" + Fore.RED + "> " + Style.RESET_ALL, end="")
         print(mask_card_or_account(operation["to"]))
         print(get_format_summ(operation))

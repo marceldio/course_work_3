@@ -1,11 +1,9 @@
 from utils.func import (get_load_data, get_change_date_format, mask_card_or_account,
                         get_filtered, get_sort_date, get_format_summ)
-import os
-import pytest
-from config import ROOT_DIR
-from colorama import Fore, Style
 
-test_file = os.path.join(ROOT_DIR, 'tests', 'test_operations.json')
+from config import test_file
+import pytest
+from colorama import Fore, Style
 
 test_op = [
   {"id": 1, "state": "EXECUTED", "date": "2018-06-01T00:00:00.000000"},
@@ -38,9 +36,10 @@ def test_mask_card_or_account():
     """
     Тест функции которая маскирует номер карты или счета.
     """
+    red = Fore.RED
+    clear = Style.RESET_ALL
     assert (mask_card_or_account("Maestro 4598300720424501") == "Maestro "
-            + Fore.RED + "4598 30" + Style.RESET_ALL + "** **** "
-            + Fore.RED + "4501" + Style.RESET_ALL)
+            + red + "4598 30" + clear + "** **** " + red + "4501" + clear)
     assert mask_card_or_account("Счет 27248529432547658655") == "Счет **8655"
 
 
