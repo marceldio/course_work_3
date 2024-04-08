@@ -1,10 +1,7 @@
 import json
 from datetime import datetime
-import os
-from config import ROOT_DIR
-from colorama import Fore, Style
 
-operations_file = os.path.join(ROOT_DIR, 'utils', 'operations.json')
+from colorama import Fore, Style
 
 
 def get_load_data(file_name):
@@ -27,11 +24,14 @@ def mask_card_or_account(value):
     Функция маскирует номер карты или счета.
     """
     nums = value.split()
+    number = nums[-1]
+    red = Fore.RED
+    clear = Style.RESET_ALL
     if nums[0] == "Счет":
-        return "Счет **" + value[-4:]
+        return f"Счет **{number[-4:]}"
     else:
         card_name = ' '.join(nums[:-1])
-        return card_name + ' ' + Fore.RED + nums[-1][:4] + ' ' + nums[-1][4:6] + Style.RESET_ALL + '** **** ' + Fore.RED + nums[-1][-4:] + Style.RESET_ALL
+        return f"{card_name} {red}{number[:4]} {number[4:6]}{clear}** **** {red}{number[-4:]}{clear}"
 
 
 def get_filtered(operations):
